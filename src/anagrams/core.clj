@@ -20,12 +20,19 @@
     (cond (= 0 (count words-one-letter-fewer)) word
           :else (conj words-one-letter-fewer (list (map #(get-letter-combinations %) words-one-letter-fewer))))))
 
-(defn count-anagrams [word]
-  (let [letter-counts (frequencies word)
-        total (reduce + (vals letter-counts))
-        has-anagrams (not (even? total))]
-    (count total)))
+(defn is-odd? [count]
+  (not (even? count)))
 
+(defn count-anagrams [word]
+  (let [letter-frequencies (frequencies word)
+        odds (filter is-odd? (vals letter-frequencies))
+        evens (filter even? (vals letter-frequencies))
+        odd-count (count odds)
+        even-count (count evens)
+        has-anagrams (= odd-count 1)]
+    (cond has-anagrams (+ odd-count even-count)
+          :else 0
+    )))
 
 (defn get-distinct-letter-combinations [word]
   (set (flatten (get-letter-combinations word))))
@@ -36,6 +43,6 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (let [input "abba"]
-    (println (get-distinct-letter-combinations input))
-  (hr input)))
+  (let [input "abbad"]
+    (println (count-anagrams input))))
+
