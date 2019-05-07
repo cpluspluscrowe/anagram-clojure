@@ -20,6 +20,13 @@
     (cond (= 0 (count words-one-letter-fewer)) word
           :else (conj words-one-letter-fewer (list (map #(get-letter-combinations %) words-one-letter-fewer))))))
 
+(defn count-anagrams [word]
+  (let [letter-counts (frequencies word)
+        total (reduce + (vals letter-counts))
+        has-anagrams (not (even? total))]
+    (count total)))
+
+
 (defn get-distinct-letter-combinations [word]
   (set (flatten (get-letter-combinations word))))
 
