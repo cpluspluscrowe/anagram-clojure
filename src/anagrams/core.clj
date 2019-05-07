@@ -8,8 +8,11 @@
 (defn word-to-letters [word]
   (map str (seq word)))
 
+(defn remove-empty-items-from-list [list]
+  (remove #(= % "") list))
+
 (defn get-all-words-one-letter-fewer [word]
-  (remove #(= % "")
+          (remove-empty-items-from-list
           (map (partial remove-letter-from-word word)  (word-to-letters word))))
 
 (defn get-letter-combinations [word]
