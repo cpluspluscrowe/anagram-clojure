@@ -15,10 +15,10 @@
 (defn get-letter-combinations [word]
   (let [words-one-letter-fewer (get-all-words-one-letter-fewer word)]
     (cond (= 0 (count words-one-letter-fewer)) word
-          :else (flatten (conj words-one-letter-fewer (list (map #(get-letter-combinations %) words-one-letter-fewer)))))))
+          :else (conj words-one-letter-fewer (list (map #(get-letter-combinations %) words-one-letter-fewer))))))
 
 (defn get-distinct-letter-combinations [word]
-  (set (get-letter-combinations word)))
+  (set (flatten (get-letter-combinations word))))
 
 (defn hr [input]
   (println input))
